@@ -1,0 +1,310 @@
+"@context": https://w3id.org/aeco/bco/bcrl/context.jsonld
+$schema:    https://w3id.org/aeco/bco/bcrl/schema.json
+$base:      https://w3id.org/aeco/bco/bcrl/example/ # namespace for instances
+$vocab:     https://w3id.org/aeco/bco/bcrl/         # namespace for classes and props
+
+$graph:
+
+#################### Regulations
+
+- $id: regulation/FI/accessibility
+  $type: Regulation
+  title: Government Decree on Accessibility of Buildings
+  subtitle: By decision of the Government, the following is enacted under section 117e, subsection 2 of the Land Use and Building Act (132/1999), as amended by Act 958/2012
+  published: !xsd!gYear 2012
+  clause:
+    - regulation/FI/accessibility/1
+    - regulation/FI/accessibility/2
+  enactedByClause:
+    - regulation/FI/LUBA/117e.2
+
+- $id: regulation/FI/LUBA
+  $type: Regulation
+  title: Land Use and Building Act (132/1999)
+  identifier: 132/1999
+  subtitle: as amended by Act 958/2012
+  published: !xsd!gYear 1999
+  modified:  !xsd!gYear 2012
+  clause:
+    - regulation/FI/LUBA/117d.2
+    - regulation/FI/LUBA/117e.2
+
+- $id: regulation/FI/LUBA/117d.2
+  $type: Clause
+  clauseType: Subsection
+  identifier: 117d.2
+
+- $id: regulation/FI/LUBA/117e.2
+  $type: Clause
+  clauseType: Subsection
+  identifier: 117e.2
+
+# PDF page footer:
+# Directive 2015/1535/EU of the European Parliament and of the Council (32015L1535); OJ L 241, 17.9.2015, p.1
+# But this is not related in any way to accessibility:
+# laying down a procedure for the provision of information in the field of technical regulations and of rules on Information Society services (codification)
+
+#################### Clauses
+
+- $id: regulation/FI/accessibility/2
+  $type: Clause
+  clauseType: regulation/clauseType/Section
+  identifier: 2
+  title: Passageway leading to a building
+  clause:
+    - regulation/FI/accessibility/2.1
+    - regulation/FI/accessibility/2.2
+
+- $id: regulation/FI/accessibility/2.1
+  $type: Clause
+  clauseType: regulation/clauseType/Subsection
+  identifier: 2.1
+  titleAdded: Passageway
+  text: |
+    There shall be an easily noticeable passageway
+    with a width of at least 1,200 millimetres
+    and a smooth, hard and non-slippery surface
+    that leads to the building
+    from the boundary of the plot or building site
+    and from the space and area that serve the use of the building.
+    The gradient of the passageway located in an outdoor space may not exceed five per cent.
+    If there are steps on the passageway, there shall also be
+    a ramp
+    or a permanently installed device intended for lifting persons
+    that is suitable for a user of a wheelchair and walking frame with wheels.
+    The provisions of this subsection do not apply to
+    a detached house, semi-detached house or townhouse
+    if providing an accessible passageway would be impossible
+    considering the site and elevation differences.
+
+- $id: regulation/FI/accessibility/2.2
+  $type: Clause
+  clauseType: regulation/clauseType/Subsection
+  identifier: 2.2
+  titleAdded: Accessible Ramp
+  buildingComponent: component/FI/accessibility/ramp
+  clause:
+    - regulation/FI/accessibility/2.2.1
+    - regulation/FI/accessibility/2.2.2
+    - regulation/FI/accessibility/2.2.3
+    - regulation/FI/accessibility/2.2.4
+  # TODO: https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/Pset_RampCommon.htm
+  # TODO: should be declared as HandicapAccessible=true, but is this a Requirement or a Selection?
+
+- $id: regulation/FI/accessibility/2.2.1
+  $type: Clause
+  clauseType: regulation/clauseType/Sentence
+  identifier: 2.2.1
+  titleAdded: Accessible Ramp Characteristics
+  text: |
+    The ramp referred to in subsection 1 above
+    shall be
+    easily noticeable
+    and straight
+    with a smooth, hard and non-slippery surface,
+    width of at least 900 millimetres
+    and, if the ramp is not connected to a fixed structure,
+    a protective edge of at least 50 millimetres in height.
+  clauseReference:
+    - regulation/FI/accessibility/2.1  # TODO: nature of link: places the Ramp in context
+    
+- $id: regulation/FI/accessibility/2.2.2
+  $type: Clause
+  clauseType: regulation/clauseType/Sentence
+  identifier: 2.2.2
+  titleAdded: Accessible Ramp Landings
+  text: |
+    There shall be a horizontal landing
+    with a length of at least 1,500 millimetres
+    at the lower and upper end of the ramp.
+    
+- $id: regulation/FI/accessibility/2.2.3
+  $type: Clause
+  clauseType: regulation/clauseType/Paragraph
+  identifier: 2.2.3
+  titleAdded: Accessible Ramp Gradient
+  clauseStructure:
+    requirement:
+      - $id: regulation/FI/accessibility/2.2.3.1
+        $type: Clause
+        clauseType: regulation/clauseType/Sentence
+        identifier: 2.2.3.1
+        text: The gradient of the ramp may not exceed five per cent.
+        quantity: quantity/FI/accessibility/ramp/gradient
+          # TODO: I think it's better to call this "property" to fit usual terminology
+        comparison: comparison/LTE
+        value: 0.049958 # radians = 5% = 2.86 degrees # TODO represent in some structured way?
+        unit: radian
+    exception:
+      $id: regulation/FI/accessibility/2.2.3.2
+      $type: Condition
+      addedTitle: Accessible Ramp is Low Height
+      condition:
+        - $id: regulation/FI/accessibility/2.2.3.2.1
+          $type: Clause
+          clauseType: regulation/clauseType/Phrase
+          identifier: 2.2.3.2.1
+          text: However, if the elevation difference is no more than 1,000 millimetres,
+          quantity: quantity/FI/accessibility/ramp/height
+          comparison: comparison/LTE
+          value: 1000
+          unit: mm
+      requirement:
+        - $id: regulation/FI/accessibility/2.2.3.2.2
+          $type: Clause
+          clauseType: regulation/clauseType/Phrase
+          identifier: 2.2.3.2.2
+          text: the ramp may not have a gradient of more than eight per cent.
+          quantity: quantity/FI/accessibility/ramp/gradient
+          comparison: comparison/LTE
+          value: 0.079830 # radians = 8% = 4.57 degrees
+          unit: radian
+        - $id: regulation/FI/accessibility/2.2.3.3
+          $type: Condition
+          identifier: 2.2.3.3
+          addedTitle: Accessible Ramp is Medium Height
+          condition:
+            - $id: regulation/FI/accessibility/2.2.3.3.1
+              $type: Clause
+              clauseType: regulation/clauseType/Phrase
+              identifier: 2.2.3.3.1
+              text: In that case, the elevation difference of a continuous ramp may not be more than 500 millimetres,
+              quantity: quantity/FI/accessibility/ramp/height
+              comparison: comparison/GT
+              value: 500
+              unit: mm
+          requirement:
+            - $id: regulation/FI/accessibility/2.2.3.3.2
+              $type: Clause
+              clauseType: regulation/clauseType/Phrase
+              identifier: 2.2.3.3.2
+              text: after which there shall be a horizontal intermediate landing
+              buildingComponent: component/FI/accessibility/ramp/landing/intermediate
+                # TODO: If there's intermediate landing then there are also 2 RampFlights, should we describe them?
+                # TODO: If the Ramp has RampFlights, how is its overall gradient defined?
+              clause:
+                - $id: regulation/FI/accessibility/2.2.3.3.2.1
+                  $type: Clause
+                  clauseType: regulation/clauseType/Phrase
+                  identifier: 2.2.3.3.2.1
+                  text: with a length of at least 2,000 millimetres.
+                  quantity: quantity/FI/accessibility/ramp/landing/intermediate/length
+                  comparison: comparison/GTE
+                  value: 2000
+                  unit: mm
+    
+  - $id: regulation/FI/accessibility/2.2.3.4
+          $type: Condition
+          identifier: 2.2.3.4
+          addedTitle: Accessible Ramp is Outdoors
+          condition:
+            - $id: regulation/FI/accessibility/2.2.3.4.1
+              $type: Clause
+              clauseType: regulation/clauseType/Phrase
+              identifier: 2.2.3.4.1
+              text: However, in an outdoor area
+              property: property/FI/accessibility/ramp/isOutdoors
+                # TODO: I think it's better to call qualitative props "characteristic"
+              comparison: EQ
+              value: true
+            - $id: regulation/FI/accessibility/2.2.3.4.2
+              $type: Clause
+              clauseType: regulation/clauseType/Phrase
+              identifier: 2.2.3.4.2
+              text: the ramp may have a gradient of more than five per cent only if 
+              quantity: quantity/FI/accessibility/ramp/gradient
+              comparison: comparison/GT
+              value: 0.049958 # radians = 5% = 2.86 degrees
+          requirement:
+            - $id: regulation/FI/accessibility/2.2.3.4.3
+              $type: Clause
+              clauseType: regulation/clauseType/Phrase
+              identifier: 2.2.3.4.3
+              text: it can be kept in a condition comparable with that of an indoor ramp.
+              property:
+                $id: property/FI/accessibility/ramp/outdoorIsKeptAsIndoor
+                $type: Property
+                text: Outdoor ramp can be kept in a condition comparable with that of an indoor ramp
+                isSubjective: true # requires human judgement
+
+- $id: regulation/FI/accessibility/2.2.4
+  $type: Clause
+  clauseType: regulation/clauseType/Sentence
+  identifier: 2.2.4
+  titleAdded: Accessible Ramp Railings or Handrails
+  text: |
+    Provisions on railings, handrails and other arrangements
+    intended to prevent falling down and misstepping
+    are laid down by decree issued under
+    section 117d, subsection 2 of the Land Use and Building Act.
+  clauseReference:
+    - regulation/FI/LUBA/117d.2 # TODO nature of link: incorporated by reference
+    # TODO: but I think we should still at least define buildingComponent
+
+#################### building components, properties (qualitative characteristics), quantities
+
+- $id: component/FI/accessibility/ramp
+  $type: ifc:IfcRamp
+  definedAt: https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRamp.htm
+    # TODO: and/or https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRampType.htm ?
+    # TODO: is it ok to refer to a specific IFC version?
+  partOf: component/FI/accessibility/passageway
+    # TODO: ContainedInStructure IfcRelContainedInSpatialStructure RelatingStructure IfcSpatialElement
+  part:
+    - component/FI/accessibility/ramp/landing/lower
+    - component/FI/accessibility/ramp/landing/intermediate
+    - component/FI/accessibility/ramp/landing/upper
+    - component/FI/accessibility/ramp/protectiveEdge
+    - component/FI/accessibility/ramp/railingOrHandrail
+      # TODO: some are mandatory, others are conditional
+  feature:
+    - feature/FI/accessibility/ramp/surface
+      # TODO: Is it correct to have a separate node, or need to attach props directly to ramp?
+      # TODO: HasSurfaceFeatures IfcRelAdheresToElement RelatedSurfaceFeatures IfcSurfaceFeature
+  predefinedType:
+    - type/FI/accessibility/ramp/straight
+      # TODO: PredefinedType IfcRampTypeEnum
+  property: # qualitative characteristics (some may be subjective)
+    - property/FI/accessibility/ramp/easilyNoticeable
+    - property/FI/accessibility/ramp/isOutdoors
+      # TODO: isDefinedBy IfcRelDefinesByProperties RelatingPropertyDefinition IfcPropertySetDefinitionSelect
+  quantity: # quantitative characteristics
+    - quantity/FI/accessibility/ramp/gradient
+    - quantity/FI/accessibility/ramp/width
+    - quantity/FI/accessibility/ramp/height
+  # TODO Use https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/Pset_RampCommon.htm to select more properties and better mappings
+  # TODO: How to represent Width given that it's not attached to any Ramp Psets?
+  # TODO: Width or ClearWidth? But that applies to Pset_RampFlightCommon not Pset_RampCommon
+
+- $id: quantity/FI/accessibility/ramp/gradient
+  $type: Quantity
+  ifcProperty: ifc:requiredSlope_IfcRamp # such prop names are used in IFCowl, eg
+    # :anchorageSlip_IfcTendon in 4x1 as per https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcTendon.htm
+    # TODO: is it the same when the prop is attached through a PSet?
+  rdfs:range: ifc:IfcPlaneAngleMeasure
+  
+- $id: feature/FI/accessibility/ramp/surface
+  $type: ifc:IfcSurfaceFeature
+  name: Accessible Ramp Surface
+  predefinedType:
+    - type/FI/accessibility/ramp/surface/nonSlippery
+  property:
+    - property/FI/accessibility/ramp/surface/smooth
+    - property/FI/accessibility/ramp/surface/hard
+
+- $id: type/FI/accessibility/ramp/straight
+  $type: ifc:IfcRampTypeEnum
+  definedAt: https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcRampTypeEnum.htm
+  value: STRAIGHT_RUN_RAMP
+
+- $id: type/FI/accessibility/ramp/surface/nonSlippery
+  $type: ifc:IfcSurfaceFeatureTypeEnum
+  definedAt: https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/lexical/IfcSurfaceFeatureTypeEnum.htm
+  value: NONSKIDSURFACING
+  # TODO maybe better HasNonSkidSurface (IfcBoolean) = true?
+  # https://ifc43-docs.standards.buildingsmart.org/IFC/RELEASE/IFC4x3/HTML/property/HasNonSkidSurface.htm
+
+- $id: property/FI/accessibility/ramp/isOutdoors
+  $type: Property
+  ifcProperty: isExternal_IfcRamp # TODO: is this right?
+  rdfs:range: ifc:IfcBoolean

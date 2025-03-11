@@ -1,0 +1,6 @@
+@prefix ns1: <http://schema.org/> .
+
+<http://example.com/book/1> ns1:author "John Doe" ;
+    ns1:description "This is a book" ;
+    ns1:name "Book Title" .
+

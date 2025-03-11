@@ -1,0 +1,25 @@
+{
+  "@context": {
+    "@vocab": "http://schema.org/",
+    "countries": "http://publication.europa.eu/resource/authority/country/"
+  },
+  "@graph": [
+    {
+      "@id": "countries:ITA"
+    },
+    {
+      "@id": "http://people.example/Homer",
+      "full_name": "Homer Simpson",
+      "country": {
+        "@id": "countries:ITA"
+      }
+    },
+    {
+      "@id": "http://people.example/Lisa",
+      "full_name": "Lisa Simpson",
+      "country": {
+        "@id": "countries:ITA"
+      }
+    }
+  ]
+}

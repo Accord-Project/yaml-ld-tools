@@ -1,0 +1,9 @@
+@prefix : <http://schema.org/> .
+@prefix countries: <http://publication.europa.eu/resource/authority/country/> .
+
+<http://people.example/Homer> :country countries:ITA ;
+    :full_name "Homer Simpson" .
+
+<http://people.example/Lisa> :country countries:ITA ;
+    :full_name "Lisa Simpson" .
+
